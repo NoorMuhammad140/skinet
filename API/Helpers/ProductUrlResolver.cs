@@ -6,17 +6,28 @@ using API.Dtos;
 using AutoMapper;
 using core.Entities;
 
+
 namespace API.Helpers
 {
     public class ProductUrlResolver : IValueResolver<Product, ProductToReturnDto, string>
     {
-        public ProductUrlResolver(IConfiguration config )
+        private readonly IConfiguration config;
+
+        public ProductUrlResolver(IConfiguration config)
         {
+            this.config = config;
+            //  _config = config;
         }
 
-        public string Resolve(Product source, ProductToReturnDto destination, string destMember, ResolutionContext context)
+        public string Resolve(Product source, ProductToReturnDto destination, string destMember,
+          ResolutionContext context)
         {
-            throw new NotImplementedException();
+           if(!string.IsNullOrEmpty(source.PictureUrl))
+           { 
+             return  config["ApiUrl"] + source.PictureUrl;
+           }
+
+            return null;
         }
     }
 }

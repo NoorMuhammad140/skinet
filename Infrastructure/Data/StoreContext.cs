@@ -23,8 +23,27 @@ namespace Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
+
+
+            if (Database.ProviderName == "Microsoft.EntityFrameworkCore.sqLite")
+            {
+                 foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+
+                {
+                    var Properties = entityType.ClrType.GetProperties().Where(p => p.PropertyType
+                    == typeof (decimal));
+
+                    foreach (var property in Properties)
+                    {
+                        modelBuilder.Entity(entityType.Name).Property(property.Name)
+                        .HasConversion<double>();
+                    }
+                
+            }
+            
 
         
      }
+        }
+    }
 }

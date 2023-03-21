@@ -33,6 +33,8 @@ using Microsoft.EntityFrameworkCore;
 
             app.UseStaticFiles();
 
+            app.UseCors("corspolicy");
+
             app.UseAuthorization();
 
             app.MapControllers();
