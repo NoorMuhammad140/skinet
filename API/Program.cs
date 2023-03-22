@@ -14,7 +14,20 @@ using Microsoft.EntityFrameworkCore;
          builder.Services.AddControllers();
          builder.Services.AddApplicationServices(builder.Configuration);
 
+         var MyAllowSpecification = "_myAllowSpecifiction";
+
+         builder.Services.AddCors(options => {
+            options.AddPolicy(name: MyAllowSpecification,
+           policy  => {
+                 policy.WithOrigins("http://localhost:4200")
+                 .AllowAnyHeader()
+                 .AllowAnyMethod();
+
+           });
+         });
+
         var app = builder.Build();
+
 
         // Configure the HTTP request pipeline.
 
@@ -33,7 +46,7 @@ using Microsoft.EntityFrameworkCore;
 
             app.UseStaticFiles();
 
-            app.UseCors("corspolicy");
+            //app.UseCors("Corspolicy");
 
             app.UseAuthorization();
 
@@ -53,6 +66,8 @@ using Microsoft.EntityFrameworkCore;
         {
             logger.LogError(ex, "An error occured  during migrations");
         }
+
+         app.UseCors(MyAllowSpecification);
 
         app.Run();
   

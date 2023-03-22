@@ -8,6 +8,7 @@ using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace API.Extensions
 {
     public static    class ApplicationServicesExtensions
@@ -51,13 +52,14 @@ namespace API.Extensions
        });
 
 
-       services.AddCors(opt =>
-         {
-            opt.AddPolicy("corspolicy", policy =>
-            {
-                policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
-            });
-         });
+    //    services.AddCors(Opt =>
+    //      {
+    //         Opt.AddPolicy("Corspolicy", policy =>
+    //         {
+    //             policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+    //         });
+    //      });
+
             return services;
         }
         
